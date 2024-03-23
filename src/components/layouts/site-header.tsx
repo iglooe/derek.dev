@@ -7,16 +7,16 @@ import { ModeToggle } from "@/components/layouts/mode-toggle"
 
 export function SiteHeader() {
   return (
-    <header className="w-full bg-background pt-4">
-      <div className="container flex h-16 max-w-3xl items-center justify-between">
+    <header className="w-full bg-transparent pt-4">
+      <div className="container flex h-16 max-w-3xl items-center justify-between text-card-foreground dark:text-primary">
         <Link href="/" className="font-bold">
           {siteConfig.name}
           <span className="sr-only">Home</span>
         </Link>
-        <nav className="flex items-center space-x-1">
-          <Button variant="ghost" size="icon" className="size-7" asChild>
+        <nav className="flex items-center text-muted-foreground">
+          <Button variant="ghost" size="icon" className="size-9" asChild>
             <Link
-              href={siteConfig.links.githubProfile}
+              href={siteConfig.links.github}
               target="_blank"
               rel="noreferrer"
             >
@@ -24,7 +24,7 @@ export function SiteHeader() {
               <span className="sr-only">GitHub</span>
             </Link>
           </Button>
-          <Button variant="ghost" size="icon" className="size-7">
+          <Button variant="ghost" size="icon" className="size-9">
             <Link
               href={siteConfig.links.discord}
               target="_blank"

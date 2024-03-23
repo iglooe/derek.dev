@@ -1,9 +1,8 @@
-// Modified from: https://github.com/shadcn-ui/ui/blob/main/apps/www/app/examples/cards/components/github-card.tsx
-
 import Link from "next/link"
 import type { Project } from "@/types"
 
 import { siteConfig } from "@/config/site"
+import { toTitleCase } from "@/lib/utils"
 import {
   Card,
   CardContent,
@@ -18,17 +17,21 @@ interface ProjectCardProps {
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const title = toTitleCase(project.name ?? "")
+
   return (
     <Card className="rounded-none">
       <Link
-        href={project.html_url ?? siteConfig.links.githubProfile}
+        href={project.html_url ?? siteConfig.links.github}
         target="_blank"
         rel="noopener noreferrer"
         className="flex h-full flex-col bg-background transition-colors hover:bg-background/25"
       >
         <CardHeader className="flex-1">
-          <CardTitle className="line-clamp-1">{project.name}</CardTitle>
-          <CardDescription className="line-clamp-2">
+          <CardTitle className="line-clamp-1 text-zinc-900/80 dark:text-white/80">
+            {title}
+          </CardTitle>
+          <CardDescription className="line-clamp-3 pt-2">
             {project.description ?? "No description provided"}
           </CardDescription>
         </CardHeader>

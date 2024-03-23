@@ -6,9 +6,8 @@ export const siteConfig = {
   url: "https://sadmn.com",
   ogImage: "https://sadmn.com/opengraph-image.png",
   links: {
-    github: "https://github.com/sadmann7/sadmn.com",
     githubRepos: "https://github.com/iglooe?tab=repositories",
-    githubProfile: "https://github.com/iglooe",
+    github: "https://github.com/iglooe",
     discord: "https://discord.com/users/derek.dev",
   },
 }

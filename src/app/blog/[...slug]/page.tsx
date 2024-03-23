@@ -51,7 +51,7 @@ export function generateMetadata({ params }: PostPageProps): Metadata {
     description: post.description,
     authors: [
       {
-        name: "sadmann7",
+        name: "Derek",
         url: "https://sadmn.com",
       },
     ],

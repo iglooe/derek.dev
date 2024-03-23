@@ -1,77 +1,74 @@
 ---
-title: How I set-up windows from a fresh install
+title: Modern Approach to the Windows Gaming Setup
 description: Full explanation of how I set up all my Windows installs from scratch.
 date: 2024-03-17
 ---
 
-# Dictum fusce ut placerat orci nulla pellentesque dignissim
+# Let's Start Fresh
 
-Sagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc sed velit dignissim sodales ut eu sem integer vitae justo eget magna fermentum iaculis eu non diam phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet enim tortor at auctor urna nunc id cursus metus aliquam eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper.
+The best way to start a new Windows install is to wipe the drive completely and start from scratch. This ensures that there are no remnants of old installs and that the system is as clean as possible. I try and do this at least once per year.
 
-## Ut Tortor
+## Activation
 
-A lacus vestibulum sed arcu non odio euismod lacinia:
+> **Warning**
+> Make sure you install Windows 11 Profession version.
+>
+> The Home version lacks some basic features like the ability to pause feature updates indefinitely.
 
-- **Next.js** for the framework, providing server-side rendering and static site generation capabilities.
-- **Tailwind CSS** for styling, offering a utility-first approach to design.
-- **shadcn/ui** for UI components, ensuring a sleek and modern user interface.
-- **TanStack/react-table** for the table package, enabling flexible and extensible tables.
-- **Neon** for the database, offering scalable POSTGRESSQL-compatible databases.
-- **Drizzle ORM** for object-relational mapping, simplifying database interactions.
-- **Zod** for validation, ensuring data integrity through TypeScript-first schema definition.
-- **million** for the optimizing compiler, enhancing performance and efficiency.
+Odds are, your Windows should be activated. If not, don't go and purchase a key. I'll show you how to get an official key from [Massgrave](https://github.com/massgravel/Microsoft-Activation-Scripts), an open-source Windows and Office HWID activator.
 
-## Key Features
+Right-click Windows start menu and select PowerShell or Terminal (**NOT** CMD).
 
-The integration of shadcn/ui with Tanstack Table boasts several advanced features:
+1. Copy and paste the following command into PowerShell and press Enter.
 
-- **Server-Side Actions**: Pagination, sorting, and filtering are handled server-side, reducing the load on the client and improving performance.
-- **Customizable Columns**: Users can define columns as per their requirements, ensuring flexibility.
-- **Dynamic Inputs**: Search and filters are debounced and faceted, respectively, enhancing the user experience by reducing lag and providing relevant filtering options.
-- **Advanced Filtering**: An optional Notion-like filtering feature allows for complex query building.
-- **Row selection Actions**: Selected rows can trigger actions such as deletion, with an optional floating bar for context-specific operations.
-- **Reusability**: The reusable `useDataTable` hook can be used to quickly build tables with server-side actions.
-
-## Getting Started
-
-To run this project locally:
-
-1. Clone the repository
-
-   ```bash
-   git clone https://github.com/sadmann7/shadcn-table
+   ```powershell
+   irm https://massgrave.dev/get | iex
    ```
 
-2. Install dependencies using pnpm
+- A GUI will pop-up and you will see the activation options. Follow the on-screen instructions.
+- Make sure you're attempting to activate the same version of Windows that you installed. If you don't know, hit the Windows key and type "About your PC" and press Enter.
 
-   ```bash
-   pnpm install
+## Mass Installation of Programs
+
+Now you could search and download each program one-by-one, but let's use another open-source tool to install our programs in bulk from the command line.
+
+> **Warning**
+> This section assumes you have WinGet installed.
+>
+> To install WinGet, open Microsoft Store and search for `App Installer` by **Microsoft Corporation**, and install it.
+
+Now let's run the Chris Titus Ultimate Windows Utility.
+
+1. From an Elevated (Run as Administrator) PowerShell prompt
+
+   ```powershell
+   iwr -useb https://christitus.com/win | iex
    ```
 
-3. Copy the `.env.example` to `.env` and update the variables.
+- There are four parts of this utility: Install, Debloat, a section for legacy windows panels, and another section to pause updates.
 
-   ```bash
-   cp .env.example .env
-   ```
+- **Installs** _recommended by me_
 
-4. Start the development server
+  1. **Shell (Expanded Context Menu)**: Menu tool that allows extra functionality and customization options to the context menu.
+  2. **7-zip**: Zip extractor and open source file-archiver utility
 
-   ```bash
-   pnpm run dev
-   ```
+Select anything else you'll need and then click the `Install Selected` button to install everything at once. You should be greeted by a bunch of new icons on your desktop if the install was successful.
 
-5. Push the database schema
+Later on down the line if you want to save this command to upgrade all your installs at once
 
-   ```bash
-   pnpm run db:push
-   ```
+```powershell
+winget upgrade --all
+```
 
-## Codebase and Deployment
+- **Tweaks**
 
-A comprehensive overview of the codebase is available on [YouTube](https://www.youtube.com/watch?v=BsvjF5Y6-C8&t=1s).
+  1. This section is easy, from the `Recommended Selections` section, either `Desktop` or `Laptop`. This will select the options for you.
+  2. If you installed `Shell (Expanded Context Menu)` from the `Installs` section, you'll want to also select "Set Classic Right-Click Menu" from the `Advanced Tweaks` section.
+  3. Now just click `Run Tweaks` and let it do its thing.
 
-Follow the deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify), and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+- **Config**
 
-## Conclusion
+  1. Just a bunch of legacy windows panels from older versions. I don't use this section but it is nice to know that there are options for windows fixes later on down the line.
 
-I'm really grateful to Kavin Desi Valli for creating the dynamic filtering function for the table using `drizzle-orm`. Make sure to check out his [YouTube channel](https://www.youtube.com/@livecode247) for more amazing content on web development.
+- **Updates**
+  1. Again, another easy section. You could probably tell which one to select. You're going to want the "Recommended" one obviously.
