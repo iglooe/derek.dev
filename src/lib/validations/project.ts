@@ -6,6 +6,4 @@ export const projectSchema = z.object({
   description: z.string().optional().nullable(),
   homepage: z.string().optional().nullable(),
   language: z.string().optional().nullable(),
-  stargazers_count: z.union([z.string(), z.number()]),
-  forks_count: z.number(),
 })

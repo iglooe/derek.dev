@@ -29,8 +29,8 @@ export const Icons = {
       <defs>
         <pattern
           id="0787a7c5-978c-4f66-83c7-11c213f99cb7"
-          width={180}
-          height={180}
+          width={50}
+          height={50}
           x="50%"
           y={-1}
           patternUnits="userSpaceOnUse"

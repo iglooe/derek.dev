@@ -71,4 +71,23 @@ winget upgrade --all
   1. Just a bunch of legacy windows panels from older versions. I don't use this section but it is nice to know that there are options for windows fixes later on down the line.
 
 - **Updates**
-  1. Again, another easy section. You could probably tell which one to select. You're going to want the "Recommended" one obviously.
+  1. Again, another easy section. You could probably tell which one to select. You're going to want the "Recommended" one.
+
+## Customization
+
+These are optional extras that I chose to do. You can skip this section if you want.
+
+- **Show Hidden Files**
+
+  1. Open File Explorer
+  2. Click on the `View` tab
+  3. Check the box for `Hidden Items`
+
+- **Show Seconds in System Tray**
+
+  1. Open Registry Editor by hitting the Windows key and typing `regedit` and pressing Enter
+  2. Navigate to `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced`
+  3. Right-click in the right pane and select `New` > `DWORD (32-bit) Value`
+  4. Name the new value `ShowSecondsInSystemClock`
+  5. Double-click the new value and set the value to `1`
+  6. Click `OK` and restart your computer to get the change
