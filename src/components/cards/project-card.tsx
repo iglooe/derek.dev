@@ -18,12 +18,12 @@ import {
   DialogFooter,
   DialogHeader,
   DialogParagraph,
-  DialogSubtitle,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Icons } from "@/components/icons"
 
+import { Badge } from "../ui/badge"
 import { Button } from "../ui/button"
 import { Separator } from "../ui/separator"
 
@@ -60,44 +60,49 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="mb-1 text-left text-primary">
+            <DialogTitle className="mb-1 text-left">
               {title}
+              <span className="ml-2">
+                <Badge
+                  className="text-[#3178c6] dark:text-[#3b82f6]"
+                  variant="outline"
+                >
+                  {project.language ?? "Unknown language"}
+                </Badge>
+              </span>
             </DialogTitle>
             <Separator className="my-4" />
-            <DialogParagraph className="pb-4 text-left tracking-tight">
+            <DialogParagraph className="pb-4 pt-2 text-left tracking-tight text-foreground">
               {project.description ?? "No description provided"}
             </DialogParagraph>
-            <div className="sr-only">Links</div>
             <DialogDescription>
               <Link
                 href={project.homepage ?? siteConfig.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors hover:text-white/85"
+                className="text-muted-foreground transition-colors hover:text-zinc-900 dark:hover:text-white/85"
               >
                 <div className="flex flex-row items-center gap-2">
                   <Icons.globe className="mr-2 size-4" />
                   {project.homepage ?? "No deployment URL"}
-                  <div className="sr-only">Deployment URL</div>
                 </div>
               </Link>
               <Link
                 href={project.html_url ?? siteConfig.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted-foreground transition-colors hover:text-white/85"
+                className="text-muted-foreground transition-colors hover:text-zinc-900 dark:hover:text-white/85"
               >
                 <div className="flex flex-row items-center gap-2">
                   <Icons.gitHub className="mr-2 size-4" />
                   {project.html_url ?? "Unknown name"}
-                  <div className="sr-only">Github Repository</div>
                 </div>
               </Link>
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="sm:justify-end">
             <DialogClose asChild>
-              <Button size="sm" type="button">
+              <Button variant="outline" type="button">
                 Close
               </Button>
             </DialogClose>

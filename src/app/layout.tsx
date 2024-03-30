@@ -69,7 +69,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
         <head />
         <body
           className={cn(
-            "min-h-screen bg-background font-sans antialiased",
+            "min-h-screen bg-background font-sans antialiased selection:bg-primary selection:text-black dark:selection:bg-secondary dark:selection:text-white",
             GeistSans.variable,
             GeistMono.variable
           )}
