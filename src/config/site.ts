@@ -1,10 +1,10 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "derek.dev",
-  description: "Personal website of Derek, built with Next.js.",
-  url: "https://sadmn.com",
-  ogImage: "https://sadmn.com/opengraph-image.png",
+  name: "derekday.dev",
+  description: "Personal website of Derek Day, built with Next.js.",
+  url: "https://derekday.dev",
+  ogImage: "https://derekday.dev/opengraph-image.png",
   links: {
     githubRepos: "https://github.com/iglooe?tab=repositories",
     github: "https://github.com/iglooe",

@@ -52,7 +52,7 @@ export function generateMetadata({ params }: PostPageProps): Metadata {
     authors: [
       {
         name: "Derek",
-        url: "https://sadmn.com",
+        url: "https://derekday.dev",
       },
     ],
     openGraph: {
