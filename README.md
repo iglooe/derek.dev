@@ -1,4 +1,4 @@
-# sadmn.com
+# derekday.dev
 
 ## Tech Stack
 

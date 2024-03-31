@@ -93,7 +93,7 @@ function ViewAllRepos() {
         className="p-10 text-sm leading-loose text-zinc-900/80 no-underline transition-colors hover:text-foreground/80 dark:text-zinc-100/80 dark:hover:text-foreground/80"
       >
         View All Repositories
-        <ArrowRightIcon className="ml-2 mt-1 size-5" />
+        <ArrowRightIcon className="ml-2 mt-1 size-3" />
         <span className="sr-only">Github Repositories</span>
       </Link>
     </Button>

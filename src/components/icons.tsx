@@ -20,32 +20,6 @@ export const Icons = {
       <path d="M3 9a2 1 0 0 0 2 1h14a2 1 0 0 0 2 -1" />
     </svg>
   ),
-  grid: (props: IconProps) => (
-    <svg
-      className="absolute inset-0 -z-10 size-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_bottom_center,white,transparent)] dark:stroke-gray-700/50"
-      aria-hidden="true"
-      {...props}
-    >
-      <defs>
-        <pattern
-          id="0787a7c5-978c-4f66-83c7-11c213f99cb7"
-          width={50}
-          height={50}
-          x="50%"
-          y={-1}
-          patternUnits="userSpaceOnUse"
-        >
-          <path d="M.5 200V.5H200" fill="none" />
-        </pattern>
-      </defs>
-      <rect
-        width="100%"
-        height="100%"
-        strokeWidth={0}
-        fill="url(#0787a7c5-978c-4f66-83c7-11c213f99cb7)"
-      />
-    </svg>
-  ),
   gitHub: (props: IconProps) => (
     <svg viewBox="0 0 438.549 438.549" {...props}>
       <path
