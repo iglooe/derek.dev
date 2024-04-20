@@ -83,7 +83,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 className="text-muted-foreground transition-colors hover:text-zinc-900 dark:hover:text-white/85"
               >
                 <div className="flex flex-row items-center gap-2">
-                  <Icons.globe className="mr-2 size-4" />
+                  <Icons.globe className="mr-2 size-5" />
                   {project.homepage ?? "No deployment URL"}
                 </div>
               </Link>
@@ -94,7 +94,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 className="text-muted-foreground transition-colors hover:text-zinc-900 dark:hover:text-white/85"
               >
                 <div className="flex flex-row items-center gap-2">
-                  <Icons.gitHub className="mr-2 size-4" />
+                  <Icons.repo className="mr-2 size-5" />
                   {project.html_url ?? "Unknown name"}
                 </div>
               </Link>

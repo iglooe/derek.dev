@@ -1,11 +1,11 @@
 import * as React from "react"
 import Link from "next/link"
-import { ArrowRightIcon } from "@radix-ui/react-icons"
 
 import { siteConfig } from "@/config/site"
 import { getProjects } from "@/lib/actions/github"
 import { Button } from "@/components/ui/button"
 import { ProjectCard } from "@/components/cards/project-card"
+import { Icons } from "@/components/icons"
 import { Posts } from "@/components/posts"
 import { Shell } from "@/components/shell"
 import { PostCardSkeleton } from "@/components/skeletons/post-card-skeleton"
@@ -93,7 +93,7 @@ function ViewAllRepos() {
         className="p-10 text-sm leading-loose text-zinc-900/80 no-underline transition-colors hover:text-foreground/80 dark:text-zinc-100/80 dark:hover:text-foreground/80"
       >
         View All Repositories
-        <ArrowRightIcon className="ml-2 mt-1 size-3" />
+        <Icons.arrow className="ml-2 size-4" />
         <span className="sr-only">Github Repositories</span>
       </Link>
     </Button>

@@ -1,0 +1,261 @@
+---
+title: Arch Linux Installation
+description: All the commands used to get from USB to a working Arch Linux installation.
+date: 2024-04-17
+---
+
+## Introduction
+
+This guide starts by booting into the live USB environment.
+
+If you need help with the install, you need a USB formatted as FAT32 with the Arch
+ISO written in the MBR partition scheme. You can use Rufus or Etcher to write the
+ISO to the USB.
+
+## I'm at the terminal, now what?
+
+Let's set the font to an easier to read size.
+
+```Shell
+setfont ter-132n
+```
+
+Check internet connection.
+
+```Shell
+ping -c 3 archlinux.org
+```
+
+If you're on a wired connection, you should be good to go. If you're on Wi-Fi, you'll need to connect to your network by the following:
+
+```Shell
+iwctl
+```
+
+```Shell
+device list
+```
+
+Verify `wlan0` shows up. If it does, show all nearby networks with the following command:
+
+```Shell
+station wlan0 get-networks
+```
+
+```Shell
+station wlan0 connect ${Network name}
+```
+
+Enter the network passphrase
+
+After entering the passphrase, wait about 5 seconds and press enter again
+
+exit the `iwctl` tool
+
+```Shell
+exit
+```
+
+Check internet connection again.
+
+```Shell
+ping -c 3 archlinux.org
+```
+
+Synchronize the package database.
+
+```Shell
+pacman -Sy
+```
+
+Install arch keyring.
+
+```Shell
+pacman -Sy archlinux-keyring
+```
+
+## Creating the partitions
+
+List all disks and figure out your disk identifier.
+
+```Shell
+lsblk
+```
+
+> **Note**
+> USB drives and SATA SSD drives will show up with the `SD` prefix.
+>
+> NVMe drives will show up with the `nvme` prefix.
+
+Grab your disk identifier which will be the items without any children partitions inside of them
+`sda`, `sdb`, `nvme0n1`, etc.
+
+Prepare the disk for partitioning.
+
+```Shell
+cfdisk /dev/${disk_identifier}
+```
+
+Look for the `Free Space` option and press `Enter`.
+
+You need **at least** 2 partitions and maybe an extra for swap RAM. The first partition is of the EFI system type and should be 1GB in size. The second partition is the root partition, which uses the default type of Linux Filesystem and should be anything 20Gb or higher.
+
+Then select `Write` and type `yes` to confirm your partitions changes.
+
+We still need to format the partitions.
+
+Replace `${disk_identifier}` with your disk identifier and match the `${partition_number}` with the partition number. As long as you created the 1GB EFI partition first, this partition number will be N and the root partition will be N+1.
+
+So in order it would be:
+
+```Shell
+mkfs.fat -F32 /dev/${disk_identifier}${partition_number}
+```
+
+```Shell
+mkfs.ext4 /dev/${disk_identifier}${partition_number}
+```
+
+Mounting the **root** partition `${disk_identifier}${N+1}`.
+
+```Shell
+mount /dev/${disk_identifier}${partition_number} /mnt
+```
+
+Create a directory inside the /mnt directory for the EFI partition.
+
+```Shell
+mkdir /mnt/boot
+```
+
+Mount the **EFI** partition `${disk_identifier}${N}`.
+
+```Shell
+mount /dev/${disk_identifier}${partition_number} /mnt/boot
+```
+
+Run `lsblk` to verify the partitions are mounted correctly.
+
+## Installing the base system
+
+```Shell
+pacstrap -i /mnt base base-devel linux linux-firmware git sudo vim neofetch htop amd-ucode networkmanager
+```
+
+Accept the defaults and wait for the installation to finish.
+
+Now lets mount the partitions off the live USB session with the following command:
+
+```Shell
+genstab -U /mnt >> /mnt/etc/fstab
+```
+
+Verify the contents of the fstab file.
+
+```Shell
+cat /mnt/etc/fstab
+```
+
+Lastly chroot into the new system.
+
+```Shell
+arch-chroot /mnt
+```
+
+The prompt should change to reflect the new root directory.
+
+Set your root password
+
+```Shell
+passwd
+```
+
+Create a standard user that you will use
+
+```Shell
+useradd -m -g users -G wheel,storage,power,video,audio -s /bin/bash ${username}
+```
+
+Set the password for the new user
+
+```Shell
+passwd ${username}
+```
+
+Enable the new user to use `sudo`
+
+```Shell
+EDITOR=vim visudo
+```
+
+Uncomment the line `%wheel ALL=(ALL) ALL` and save the file.
+
+**Optional**
+
+Verify the new user can use `sudo`
+
+```Shell
+su - ${username}
+```
+
+Your shell should change again to reflect the new user. Simply type exit to return to the root user.
+
+## Configuring the system
+
+Set the timezone
+
+```Shell
+ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime
+```
+
+Sync the hardware clock
+
+```Shell
+hwclock --systohc
+```
+
+Edit the locale.gen file
+
+```Shell
+vim /etc/locale.gen
+```
+
+Uncomment the line `en_US.UTF-8 UTF-8` and save the file.
+
+Generate the locale
+
+```Shell
+locale-gen
+```
+
+Create the locale.conf file
+
+```Shell
+vim /etc/locale.conf
+```
+
+Add the following line to the file: `LANG=en_US.UTF-8`. Save the changes and exit.
+
+Set the hostname
+
+```Shell
+vim /etc/hostname
+```
+
+Add your hostname to the file and save it.
+
+Edit the hosts file
+
+```Shell
+vim /etc/hosts
+```
+
+Add the following lines to the file:
+
+```Shell
+127.0.0.1  localhost
+::1        localhost
+127.0.1.1  ${hostname}.localdomain ${hostname}
+```
+
+## Installing grub for multiple OS booting

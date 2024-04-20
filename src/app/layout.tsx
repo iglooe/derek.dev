@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     creator: "@VinceBarter",
   },
   icons: {
-    icon: "/icon.png",
+    icon: "/favicon.ico",
   },
   manifest: absoluteUrl("/site.webmanifest"),
 }
