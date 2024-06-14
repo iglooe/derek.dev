@@ -9,6 +9,7 @@ import { GeistSans } from "geist/font/sans"
 import { siteConfig } from "@/config/site"
 import { absoluteUrl, cn } from "@/lib/utils"
 import { SiteHeader } from "@/components/layouts/site-header"
+import { MagicCard, MagicContainer } from "@/components/spotlight"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 
@@ -81,8 +82,12 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
             disableTransitionOnChange
           >
             <div className="relative flex min-h-screen flex-col">
-              <SiteHeader />
-              <main className="flex-1">{children}</main>
+              <MagicContainer>
+                <MagicCard>
+                  <SiteHeader />
+                  <main className="flex-1">{children}</main>
+                </MagicCard>
+              </MagicContainer>
             </div>
             <TailwindIndicator />
           </ThemeProvider>
