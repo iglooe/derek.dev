@@ -24,10 +24,14 @@ export default async function Music() {
             />
             <div className="flex flex-col">
               <Link href={songUrl}>
-                <h3 className="font-semibold text-neutral-100">{title}</h3>
+                <h3 className="line-clamp-1 font-semibold text-zinc-100">
+                  {title}
+                </h3>
               </Link>
-              <p>{artists.map(({ name }) => name).join(", ")}</p>
-              <p>{album}</p>
+              <p className="line-clamp-1 text-zinc-400">
+                {artists.map(({ name }) => name).join(", ")}
+              </p>
+              <p className="line-clamp-1 text-zinc-400">{album}</p>
             </div>
           </div>
         ))}
@@ -51,7 +55,7 @@ export default async function Music() {
               <Link href={url}>
                 <h3 className="font-semibold text-neutral-100">{name}</h3>
               </Link>
-              <p>{followers} followers</p>
+              <p className="text-zinc-400">{followers} followers</p>
             </div>
           </div>
         ))}

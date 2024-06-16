@@ -2,7 +2,8 @@ import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
 import { Button } from "@/components/ui/button"
-import { ModeToggle } from "@/components/layouts/mode-toggle"
+
+import { Icons } from "../icons"
 
 export function SiteHeader() {
   return (
@@ -41,9 +42,9 @@ export function SiteHeader() {
               rel="noreferrer"
             >
               github
+              <Icons.link className="-mt-0.5 ml-1.5 size-4 text-muted-foreground/50" />
             </Link>
           </Button>
-          <ModeToggle />
         </nav>
       </div>
     </header>

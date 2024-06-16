@@ -11,7 +11,6 @@ import { absoluteUrl, cn } from "@/lib/utils"
 import { SiteHeader } from "@/components/layouts/site-header"
 import { MagicCard, MagicContainer } from "@/components/spotlight"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
-import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -70,27 +69,20 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
         <head />
         <body
           className={cn(
-            "min-h-screen bg-background font-sans antialiased selection:bg-primary selection:text-black dark:selection:bg-secondary dark:selection:text-white",
+            "dark min-h-screen bg-background font-sans antialiased selection:bg-primary selection:text-black dark:selection:bg-secondary dark:selection:text-white",
             GeistSans.variable,
             GeistMono.variable
           )}
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <div className="relative flex min-h-screen flex-col">
-              <MagicContainer>
-                <MagicCard>
-                  <SiteHeader />
-                  <main className="flex-1">{children}</main>
-                </MagicCard>
-              </MagicContainer>
-            </div>
-            <TailwindIndicator />
-          </ThemeProvider>
+          <div className="relative flex min-h-screen flex-col">
+            <MagicContainer>
+              <MagicCard>
+                <SiteHeader />
+                <main className="flex-1">{children}</main>
+              </MagicCard>
+            </MagicContainer>
+          </div>
+          <TailwindIndicator />
         </body>
       </html>
     </>
