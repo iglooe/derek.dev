@@ -14,36 +14,11 @@ export function SiteHeader() {
           <span className="sr-only">Home</span>
         </Link>
         <nav className="flex items-center text-muted-foreground">
-          <Button
-            variant="link"
-            size="sm"
-            className="text-muted-foreground"
-            asChild
-          >
+          <Button variant="link" size="sm" className="text-neutral-400" asChild>
             <Link href="/blog">blog</Link>
           </Button>
-          <Button
-            variant="link"
-            size="sm"
-            className="text-muted-foreground"
-            asChild
-          >
+          <Button variant="link" size="sm" className="text-neutral-400" asChild>
             <Link href="/music">music</Link>
-          </Button>
-          <Button
-            size="sm"
-            variant="link"
-            className="text-muted-foreground"
-            asChild
-          >
-            <Link
-              href={siteConfig.links.github}
-              target="_blank"
-              rel="noreferrer"
-            >
-              github
-              <Icons.link className="-mt-0.5 ml-1.5 size-4 text-muted-foreground/50" />
-            </Link>
           </Button>
         </nav>
       </div>

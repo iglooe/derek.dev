@@ -8,6 +8,7 @@ import { GeistSans } from "geist/font/sans"
 
 import { siteConfig } from "@/config/site"
 import { absoluteUrl, cn } from "@/lib/utils"
+import { SiteFooter } from "@/components/layouts/footer"
 import { SiteHeader } from "@/components/layouts/site-header"
 import { MagicCard, MagicContainer } from "@/components/spotlight"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
@@ -79,6 +80,7 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
               <MagicCard>
                 <SiteHeader />
                 <main className="flex-1">{children}</main>
+                <SiteFooter />
               </MagicCard>
             </MagicContainer>
           </div>
