@@ -87,36 +87,26 @@ export async function getTopTracks() {
 }
 
 export async function getFollowersOfArtistFromId(id?: string) {
-  return await cache(
-    async () => {
-      const { access_token } = await getAccessToken()
+  const { access_token } = await getAccessToken()
 
-      const response = await fetch(`https://api.spotify.com/v1/artists/${id}`, {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      }).then((res) => res.json())
-
-      const { followers } = z
-        .object({
-          followers: z.object({
-            total: z.number(),
-          }),
-        })
-        .parse(response)
-
-      return followers.total
+  const response = await fetch(`https://api.spotify.com/v1/artists/${id}`, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
     },
-    ["followers"],
-    {
-      revalidate: 3600,
-    }
-  )()
+  }).then((res) => res.json())
+
+  const { followers } = z
+    .object({
+      followers: z.object({
+        total: z.number(),
+      }),
+    })
+    .parse(response)
+
+  return followers.total
 }
 
 export async function getTopArtists() {
-  // return await cache(
-  //   async () => {
   const { access_token } = await getAccessToken()
 
   const response = await fetch(
@@ -159,10 +149,4 @@ export async function getTopArtists() {
       ]
     ).then((res) => res.toLocaleString()),
   }))
-  //   },
-  //   ["top-artists"],
-  //   {
-  //     revalidate: 3600,
-  //   }
-  // )()
 }
