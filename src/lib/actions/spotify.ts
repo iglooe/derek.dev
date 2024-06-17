@@ -1,5 +1,6 @@
 import "server-only"
 
+import { unstable_cache as cache } from "next/cache"
 import { z } from "zod"
 
 export async function getAccessToken(): Promise<{ access_token: string }> {
@@ -31,73 +32,91 @@ export async function getAccessToken(): Promise<{ access_token: string }> {
 }
 
 export async function getTopTracks() {
-  const { access_token } = await getAccessToken()
+  return await cache(
+    async () => {
+      const { access_token } = await getAccessToken()
 
-  const response = await fetch(
-    "https://api.spotify.com/v1/me/top/tracks?time_range=short_term",
-    {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    }
-  ).then((res) => res.json())
+      const response = await fetch(
+        "https://api.spotify.com/v1/me/top/tracks?time_range=short_term",
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        }
+      ).then((res) => res.json())
 
-  const { items } = z
-    .object({
-      items: z.array(
-        z.object({
-          artists: z.array(
+      const { items } = z
+        .object({
+          items: z.array(
             z.object({
+              artists: z.array(
+                z.object({
+                  name: z.string(),
+                })
+              ),
+              album: z.object({
+                name: z.string(),
+                images: z.array(
+                  z.object({
+                    url: z.string(),
+                  })
+                ),
+              }),
+              external_urls: z.object({
+                spotify: z.string(),
+              }),
               name: z.string(),
             })
           ),
-          album: z.object({
-            name: z.string(),
-            images: z.array(
-              z.object({
-                url: z.string(),
-              })
-            ),
-          }),
-          external_urls: z.object({
-            spotify: z.string(),
-          }),
-          name: z.string(),
         })
-      ),
-    })
-    .parse(response)
+        .parse(response)
 
-  return items.slice(0, 10).map((item) => ({
-    artists: item.artists,
-    songUrl: item.external_urls.spotify,
-    title: item.name,
-    album: item.album.name,
-    image: item.album.images[0]?.url,
-  }))
+      return items.slice(0, 10).map((item) => ({
+        artists: item.artists,
+        songUrl: item.external_urls.spotify,
+        title: item.name,
+        album: item.album.name,
+        image: item.album.images[0]?.url,
+      }))
+    },
+    ["top-tracks"],
+    {
+      revalidate: 3600,
+    }
+  )()
 }
 
 export async function getFollowersOfArtistFromId(id?: string) {
-  const { access_token } = await getAccessToken()
+  return await cache(
+    async () => {
+      const { access_token } = await getAccessToken()
 
-  const response = await fetch(`https://api.spotify.com/v1/artists/${id}`, {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
+      const response = await fetch(`https://api.spotify.com/v1/artists/${id}`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }).then((res) => res.json())
+
+      const { followers } = z
+        .object({
+          followers: z.object({
+            total: z.number(),
+          }),
+        })
+        .parse(response)
+
+      return followers.total
     },
-  }).then((res) => res.json())
-
-  const { followers } = z
-    .object({
-      followers: z.object({
-        total: z.number(),
-      }),
-    })
-    .parse(response)
-
-  return followers.total
+    ["followers"],
+    {
+      revalidate: 3600,
+    }
+  )()
 }
 
 export async function getTopArtists() {
+  // return await cache(
+  //   async () => {
   const { access_token } = await getAccessToken()
 
   const response = await fetch(
@@ -140,4 +159,10 @@ export async function getTopArtists() {
       ]
     ).then((res) => res.toLocaleString()),
   }))
+  //   },
+  //   ["top-artists"],
+  //   {
+  //     revalidate: 3600,
+  //   }
+  // )()
 }
