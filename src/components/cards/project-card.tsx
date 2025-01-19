@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/dialog"
 import { Icons } from "@/components/icons"
 
-import { Badge } from "../ui/badge"
+import { LanguageBadge, LanguageCircle } from "../language"
 import { Button } from "../ui/button"
 import { Separator } from "../ui/separator"
 
@@ -48,13 +48,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               </CardDescription>
             </CardHeader>
             <CardContent className="flex space-x-4 text-sm text-muted-foreground">
-              <div className="flex items-center">
-                <Icons.circle
-                  className="mr-1 size-3 fill-current text-[#3178c6]"
-                  aria-hidden="true"
-                />
-                {project.language ?? "Unknown"}
-              </div>
+              <LanguageCircle language={project.language} />
             </CardContent>
           </Card>
         </DialogTrigger>
@@ -63,12 +57,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <DialogTitle className="mb-1 text-left">
               {title}
               <span className="ml-2">
-                <Badge
-                  className="text-[#3178c6] dark:text-[#3b82f6]"
-                  variant="outline"
-                >
-                  {project.language ?? "Unknown language"}
-                </Badge>
+                <LanguageBadge language={project.language} />
               </span>
             </DialogTitle>
             <Separator className="my-4" />
